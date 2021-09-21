@@ -1,0 +1,85 @@
+<%- include("../partials/header"); %>
+    <main class="container" style="margin-top: 50px;">
+
+        <% if (messages.success) { %>
+            <div class="alert alert-success" role="alert">
+                <%- messages.success %>
+            </div>
+            <% } %>
+
+                <% if (messages.error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%- messages.error %>
+                    </div>
+                    <% } %>
+                        <!-- <input (keyup)="searchData($event)" type="text" class="form-control" placeholder="Search"aria-label="Searchbox" aria-describedby="basic-addon1"> -->
+
+                        <div class="card">
+                            <div class="card-header">Estoque</div>
+                            <div class="card-body">
+                                <% if(data.length) { %>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Nome Produto</th>
+                                                <th scope="col">Status Produto</th>
+                                                <th width="200px">Preço Produto</th>
+                                                <th><button type="button" class="btn btn-success btn-sm"><a class="nav-link active" href="/produtos/add">Adicionar Produto</a></button> 
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% for(var i=0; i< data.length; i++) { %>
+                                                <tr>
+                                                    <th scope="row">
+                                                        <%= (i+1) %>
+                                                    </th>
+                                                    <td>
+                                                        <%= data[i].nome_produto%>
+                                                    </td>
+                                                    <td>
+                                                        <% if(data[i].status_produto == 1){ %> <b>Ativo</b> <% } else { %> <b>Inativo</b> <% } %>
+                                                    </td>
+                                                    <td>
+                                                        <%= data[i].preco_produto%>
+                                                    </td>
+                                                    <td>
+                                                        <a class="btn btn-success edit"
+                                                            href="../produtos/edit/<%=data[i].id_produtos%>">Editar</a>
+                                                        <a class="btn btn-danger delete"
+                                                            onclick="getConfirmation(<%=data[i].id_produtos%>);">Remover</a>
+                                                    </td>
+                                                </tr>
+                                                <% } %>
+                                        </tbody>
+                                    </table>
+                                    <% } %>
+
+                                        <!-- if result is empty -->
+                                        <% if(!data.length) { %>
+                                            <p class="text-center">Nenhum Produto Encontrado</p>
+                                            <% } %>
+
+                            </div>
+                        </div>
+    </main>
+    <!--script verificaçao deletar-->
+    <script>
+        function getConfirmation(id_produtos) {
+            var retVal = confirm("Deseja Remover o Produto?");
+            if (retVal == true) {
+                window.location = "../produtos/delete/" + id_produtos;
+                return true;
+            } else {
+                return false;
+            }
+        }
+    </script>
+
+    <style>
+        a:hover {
+        color: darkgreen;
+        }
+    </style>
+    <%- include("../partials/footer"); %>
