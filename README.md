@@ -1,2 +1,2 @@
-# projetosql_com_node
-MySQL with node project done with SoulCode Academy 
+Crud done with MySQL and node JS. 
+Project done with SoulCode Academy.
